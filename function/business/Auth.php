@@ -2,13 +2,31 @@
 require_once 'function/persistence/entity/Entity.php';
 require_once 'function/persistence/dao/UserDAO.php';
 
+/**
+ * Classe de autenticação de usuário
+ * @author Vitor Kawai Sala
+ * @todo testes
+ */
 class Auth {
+	/**
+	 * @var UserDAO - DAO do usuário.
+	 */
 	private $dao;
 	
+	/** Construtor */
 	public function __construct(){
 		$this->dao = UserDAO::getInstance();
 	}
 	
+	/**
+	 * Login de usuário.
+	 * @param string $userMail
+	 * @param string $password
+	 * @throws DataBaseException
+	 * @return boolean
+	 * 
+	 * @todo Testar sessão.
+	 */
 	public function login($userMail, $password){
 		try{
 			$user = $this->dao->getUserByMail($userMail);

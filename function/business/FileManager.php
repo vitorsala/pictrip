@@ -1,15 +1,20 @@
 <?php
-
+/**
+ * @todo implementar os métodos
+ * @author Vitor Kawai Sala
+ *
+ */
 class FileManager{
+	/** @var Permissão padrão */
 	const DEFAULT_PERMISSION = 755;
-	
+	/** @var Tipos de arquivos aceito */
 	private $fileType = [
 		"image/x-png",
 		"image/jpeg",
 		"image/gif",
 		"image/bmp"
 	];
-	
+	/** @var Mensagens de erro de upload */
 	private $upload_errors = array(
 		0						=>	"There is no error, the file uploaded with success",
 		UPLOAD_ERR_INI_SIZE		=>	"The uploaded file exceeds the upload_max_filesize directive in php.ini",
@@ -20,9 +25,4 @@ class FileManager{
 		UPLOAD_ERR_CANT_WRITE	=>	"Failed to write to disk",
 		UPLOAD_ERR_EXTENSION	=>	"File upload stopped by extension"
 	);
-	
-	
-	public function t(){
-		
-	}
 ?>
