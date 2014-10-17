@@ -105,15 +105,15 @@ class UserDAO {
 		return null;
 	}
 	
-	function registerNewUser($name, $surName, $mail, $nasc, $pass, $sex, $avatar){
+	function registerNewUser($name, $surName, $mail, $birthday, $pass, $sex, $avatar){
 		$name = $this->db->realEscape($name);
 		$surName = $this->db->realEscape($surName);
 		$mail = $this->db->realEscape($mail);
 		$avatar = $this->db->realEscape($avatar);
-		$pass = password_hash($pass, PASSWORD_BCRYPT);
+		//$pass = password_hash($pass, PASSWORD_DEFAULT);
 		
 		$query = "INSERT INTO user (user_name, user_surname, user_mail, user_password, user_sex, user_birthday, user_avatar)
-				VALUES ('$name', '$surName', '$mail', '$pass', '$sex', '$nasc', '$avatar')";
+				VALUES ('$name', '$surName', '$mail', '$pass', '$sex', '$birthday', '$avatar')";
 		echo $query."<br/><br/>";
 		try {
 			if($this->checkIfUserExist($mail))	return FALSE;

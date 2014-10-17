@@ -6,14 +6,13 @@
 	 */
     class Log{
     	private function __construct(){}
-    	private static $debugMode = TRUE;
     	/**
     	 * 
     	 * @param String $message
     	 * @param LogType $type
     	 */
 	    public static function newLogEntry($message, $type = LogType::LOG){
-	    	if(!self::$debugMode && $type == LogType::DEBUG)	die();
+	    	if(!DEBUG_MODE && $type == LogType::DEBUG)	die();
 	    	date_default_timezone_set('America/Sao_Paulo');
 	    	$filePrefix = "pictrip_log_".date('Y-m-d');
 	    	
