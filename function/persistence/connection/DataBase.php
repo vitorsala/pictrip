@@ -1,5 +1,5 @@
 <?php
-require_once 'function/Persistence/exception/DataBaseException.php';
+require_once 'function/persistence/exception/DataBaseException.php';
 require_once 'function/logging/Log.php';
 
 /**

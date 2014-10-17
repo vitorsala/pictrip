@@ -5,9 +5,9 @@
 	<body>
 		<?php
 			require_once 'header.php';
-			require_once 'function/Persistence/connection/DataBase.php';
-			require_once 'function/Persistence/entity/Entity.php';
-			require_once 'function/Persistence/dao/UserDAO.php';
+			require_once 'function/persistence/connection/DataBase.php';
+			require_once 'function/persistence/entity/Entity.php';
+			require_once 'function/persistence/dao/UserDAO.php';
 			require_once 'function/business/Auth.php';
 			
 // 			$dao = UserDAO::getInstance();

@@ -1,5 +1,5 @@
 <?php
-	require_once 'function/Persistence/entity/Entity.php';
+	require_once 'function/persistence/entity/Entity.php';
 	
 	class User extends Entity{
 		public $mail;

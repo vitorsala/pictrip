@@ -1,7 +1,7 @@
 <?php
 require_once 'function/logging/Log.php';
-require_once 'function/Persistence/connection/DataBase.php';
-require_once 'function/Persistence/entity/Entity.php';
+require_once 'function/persistence/connection/DataBase.php';
+require_once 'function/persistence/entity/Entity.php';
 
 class UserDAO {
 	private $db;

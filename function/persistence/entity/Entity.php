@@ -1,5 +1,5 @@
 <?php
-	foreach(glob("function/Persistence/entity/*.php") as $filePath){
+	foreach(glob("function/persistence/entity/*.php") as $filePath){
 		require_once $filePath;
 	}
 

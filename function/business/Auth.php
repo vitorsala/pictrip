@@ -1,6 +1,6 @@
 <?php
-require_once 'function/Persistence/entity/Entity.php';
-require_once 'function/Persistence/dao/UserDAO.php';
+require_once 'function/persistence/entity/Entity.php';
+require_once 'function/persistence/dao/UserDAO.php';
 
 class Auth {
 	private $dao;
