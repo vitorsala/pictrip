@@ -19,5 +19,9 @@
 		private function setId($id){
 			$this->id = $id;
 		}
+		
+		public function getVarNames(){
+			return array_keys(get_class_vars(get_class($this)));
+		}
 	}
 ?>

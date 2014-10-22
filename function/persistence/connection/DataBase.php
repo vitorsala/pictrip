@@ -27,6 +27,7 @@ class DataBase {
 	
 	public function __destruct() {
 		$this->mysqli->close ();
+		unset ( $this->mysqli );
 	}
 	
 	/**
@@ -62,11 +63,26 @@ class DataBase {
 	}
 	
 	/**
+	 * Abre uma nova conexão
+	 * @throws DataBaseException
+	 */
+	private function openConnection(){
+		try {
+			$this->mysqli->connect($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname);
+			if ($this->mysqli->connect_errno > 0) {
+				Log::newLogEntry ( $this->mysqli->error, LogType::ERROR );
+				die ( 'Erro ao conectar ao banco de dados [' . $this->mysqli->error . ']' );
+			}
+		} catch (Exception $e) {
+			throw new DataBaseException ( $e->getMessage (), $e->getCode (), $e->getPrevious () );
+		}
+	}
+	
+	/**
 	 * Fecha conexão SQL
 	 */
 	private function closeConnection() {
-		$check = $this->mysqli->close ();
-		unset ( $this->mysqli );
+		$this->mysqli->close ();
 	}
 	
 	/**
@@ -81,25 +97,18 @@ class DataBase {
 	public function query($query) {
 		$result = $this->mysqli->query ( $query );
 		if ($this->mysqli->errno > 0) {
+			$this->closeConnection();
 			throw new DataBaseException ( $this->mysqli->errno.': Erro ao conectar ao banco de dados [' . $this->mysqli->error . ']' );
 		}
 		Log::newLogEntry ( "Query \"$query\" executado com sucesso.", LogType::DEBUG);
+		$this->closeConnection();
 		return $result;
 	}
 	
 	/**
-	 * Método para manipulação de dados SQL.
 	 * 
-	 * @param unknown $query        	
+	 * @param unknown $string
 	 */
-	public function update($query) {
-		$status = $this->query ( $query );
-		if (! $status) {
-			$this->mysqli->rollback ();
-		} else
-			$this->mysqli->commit ();
-	}
-	
 	public function realEscape($string){
 		return $this->mysqli->escape_string ($string);
 	}

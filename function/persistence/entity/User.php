@@ -9,7 +9,7 @@
 		public $mail;
 		public $name;
 		public $surname;
-		public $nasc;
+		public $birthday;
 		public $password;
 		public $sex;
 		public $avatar;
@@ -18,4 +18,5 @@
 		public function __construct(){}
 		
 	}
+	
 ?>
