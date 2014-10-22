@@ -112,7 +112,7 @@ class UserDAO {
 	 * @return <strong>TRUE</strong> caso o email seja encontrado no banco de dados<br/>
 	 * <strong>FALSE</strong> caso contrário.	
 	 */
-	function checkIfUserExist($userMail) {
+	private function checkIfUserExist($userMail) {
 		$query = "SELECT user_mail FROM user WHERE user_mail = '$userMail';";
 		try {
 			$result = $this->db->query($query);
@@ -141,24 +141,24 @@ class UserDAO {
 	/**
 	 * 
 	 * @param String $name
-	 * @param String $surName
+	 * @param String $surname
 	 * @param String $mail
 	 * @param String $birthday
-	 * @param String $pass
+	 * @param String $password
 	 * @param String $sex
 	 * @param String $avatar
 	 * @throws DataBaseException
 	 * @return boolean|unknown
 	 */
-	function registerNewUser($name, $surName, $mail, $birthday, $pass, $sex, $avatar){
+	public function registerNewUser($name, $surname, $mail, $birthday, $password, $sex, $avatar){
 		$name = $this->db->realEscape($name);
-		$surName = $this->db->realEscape($surName);
+		$surname = $this->db->realEscape($surname);
 		$mail = $this->db->realEscape($mail);
 		$avatar = $this->db->realEscape($avatar);
-		//$pass = password_hash($pass, PASSWORD_DEFAULT);
+		//$password = password_hash($password, PASSWORD_DEFAULT);
 		
 		$query = "INSERT INTO user (user_name, user_surname, user_mail, user_password, user_sex, user_birthday, user_avatar)
-				VALUES ('$name', '$surName', '$mail', '$pass', '$sex', '$birthday', '$avatar')";
+				VALUES ('$name', '$surname', '$mail', '$password', '$sex', '$birthday', '$avatar')";
 		
 		try {
 			if($this->checkIfUserExist($mail))	return FALSE;
@@ -171,6 +171,60 @@ class UserDAO {
 			throw $e;
 		}
 		return FALSE;
+	}
+	
+	/**
+	 * @todo TESTAR!
+	 * @param User $user
+	 * @throws DataBaseException
+	 * @return unknown|boolean
+	 */
+	public function updateUser(User $user){
+		$query = "UPDATE user SET ";
+		foreach($user->getVarNames() as $key){
+			$query .= "aluno_$key = ".$this->db->realEscape($user->{$key});
+		}
+		$query .= " WHERE aluno_id = $user->getId()";
+		
+		try {
+			$result = $this->db->query($query);
+			return $result;
+		} catch ( DataBaseException $e ) {
+			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
+			throw $e;
+		}
+		return FALSE;
+	}
+	
+	/**
+	 * @todo IMPLEMENTAR!!
+	 * @param unknown $oldMail
+	 * @param unknown $name
+	 * @param unknown $surname
+	 * @param unknown $mail
+	 * @param unknown $birthday
+	 * @param unknown $password
+	 * @param unknown $sex
+	 * @param unknown $avatar
+	 */
+	public function updateUser($oldMail, $name, $surname, $mail, $birthday, $password, $sex, $avatar){
+		
+	}
+	
+	/**
+	 * @todo TESTAR!
+	 * @param unknown $mail
+	 * @return unknown
+	 */
+	public function deleteUser($mail){
+		$query = "DELETE FROM user WHERE user_mail = '$mail'";
+		try{
+			$result = $this->db->query($query);
+			return $result;
+		}catch (DataBaseException $e){
+			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
+			throw $e;
+		}
 	}
 }
 ?>
