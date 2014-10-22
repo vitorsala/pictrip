@@ -26,7 +26,6 @@ class DataBase {
 	} 
 	
 	public function __destruct() {
-		$this->mysqli->close ();
 		unset ( $this->mysqli );
 	}
 	
@@ -55,7 +54,6 @@ class DataBase {
 					Log::newLogEntry ( $this->mysqli->error, LogType::ERROR );
 					die ( 'Erro ao conectar ao banco de dados [' . $this->mysqli->error . ']' );
 				}
-				$this->mysqli->autocommit ( TRUE );
 			} catch ( Exception $e ) {
 				throw new DataBaseException ( $e->getMessage (), $e->getCode (), $e->getPrevious () );
 			}
@@ -95,13 +93,16 @@ class DataBase {
 	 *         resultado ou a operação não for bem sucedido.
 	 */
 	public function query($query) {
+		$this->openConnection();
 		$result = $this->mysqli->query ( $query );
 		if ($this->mysqli->errno > 0) {
 			$this->closeConnection();
 			throw new DataBaseException ( $this->mysqli->errno.': Erro ao conectar ao banco de dados [' . $this->mysqli->error . ']' );
 		}
-		Log::newLogEntry ( "Query \"$query\" executado com sucesso.", LogType::DEBUG);
-		$this->closeConnection();
+		else{
+			Log::newLogEntry ( "Query \"$query\" executado com sucesso.", LogType::DEBUG);
+			$this->closeConnection();
+		}
 		return $result;
 	}
 	

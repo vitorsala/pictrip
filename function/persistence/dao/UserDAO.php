@@ -123,18 +123,16 @@ class UserDAO {
 					return TRUE;
 				}
 			}
-			return FALSE;
 		} catch ( DataBaseException $e ) {
 			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
 			throw $e;
 		}
-		return FALSE;
 	}
 	
 	/** 
 	 * @todo Implementar o método. 
 	*/
-	function getUserAvatar($userMail){
+	public function getUserAvatar($userId){
 		return null;
 	}
 	
@@ -170,7 +168,6 @@ class UserDAO {
 			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
 			throw $e;
 		}
-		return FALSE;
 	}
 	
 	/**
@@ -193,22 +190,6 @@ class UserDAO {
 			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
 			throw $e;
 		}
-		return FALSE;
-	}
-	
-	/**
-	 * @todo IMPLEMENTAR!!
-	 * @param unknown $oldMail
-	 * @param unknown $name
-	 * @param unknown $surname
-	 * @param unknown $mail
-	 * @param unknown $birthday
-	 * @param unknown $password
-	 * @param unknown $sex
-	 * @param unknown $avatar
-	 */
-	public function updateUser($oldMail, $name, $surname, $mail, $birthday, $password, $sex, $avatar){
-		
 	}
 	
 	/**
