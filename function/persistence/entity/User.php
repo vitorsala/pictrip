@@ -18,5 +18,4 @@
 		public function __construct(){}
 		
 	}
-	
 ?>

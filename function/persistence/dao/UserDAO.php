@@ -54,18 +54,14 @@ class UserDAO {
 			if($result->num_rows <= 0)	return FALSE;
 			
 			while ( $result && $row = mysqli_fetch_array ( $result ) ) {
-				if ($row ['user_mail'] == $userMail) {
-					
-					foreach($row as $key => $value){
-						if(!is_numeric($key)){
-							$var = str_replace($this->suffix, "", $key);
-							$user->{$var} = $value;
-						}
+				foreach($row as $key => $value){
+					if(!is_numeric($key)){
+						$var = str_replace($this->suffix, "", $key);
+						$user->{$var} = $value;
 					}
-					
-					return $user;
-					
 				}
+				
+				return $user;
 			}
 			return FALSE;
 		} catch ( DataBaseException $e ) {
@@ -106,7 +102,6 @@ class UserDAO {
 	}
 	
 	/**
-	 * 
 	 * @param String $userMail
 	 * @throws DataBaseException
 	 * @return <strong>TRUE</strong> caso o email seja encontrado no banco de dados<br/>
@@ -117,25 +112,28 @@ class UserDAO {
 		try {
 			$result = $this->db->query($query);
 			if($result->num_rows <= 0)	return FALSE;
-			
-			while ($result && $row = mysqli_fetch_array ( $result ) ) {
-				if ($row ['user_mail'] == $userMail) {
-					return TRUE;
-				}
-			}
-			return FALSE;
+			return true;
 		} catch ( DataBaseException $e ) {
 			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
 			throw $e;
 		}
-		return FALSE;
 	}
 	
 	/** 
 	 * @todo Implementar o método. 
 	*/
-	function getUserAvatar($userMail){
-		return null;
+	public function getUserAvatar($userId){
+		$query = "SELECT user_avatar FROM user WHERE user_id = $userId";
+		try {
+			$result = $this->db->query($query);
+			if($result->num_rows <= 0)	return FALSE;
+			while ($result && $row = mysqli_fetch_array ( $result ) ) {
+				return $row ['user_avatar'];
+			}
+		} catch ( DataBaseException $e ) {
+			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
+			throw $e;
+		}
 	}
 	
 	/**
@@ -155,7 +153,7 @@ class UserDAO {
 		$surname = $this->db->realEscape($surname);
 		$mail = $this->db->realEscape($mail);
 		$avatar = $this->db->realEscape($avatar);
-		//$password = password_hash($password, PASSWORD_DEFAULT);
+		$password = password_hash($password, PASSWORD_DEFAULT);
 		
 		$query = "INSERT INTO user (user_name, user_surname, user_mail, user_password, user_sex, user_birthday, user_avatar)
 				VALUES ('$name', '$surname', '$mail', '$password', '$sex', '$birthday', '$avatar')";
@@ -170,22 +168,28 @@ class UserDAO {
 			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
 			throw $e;
 		}
-		return FALSE;
 	}
 	
 	/**
-	 * @todo TESTAR!
 	 * @param User $user
 	 * @throws DataBaseException
 	 * @return unknown|boolean
 	 */
 	public function updateUser(User $user){
 		$query = "UPDATE user SET ";
+		$s = true;
 		foreach($user->getVarNames() as $key){
-			$query .= "aluno_$key = ".$this->db->realEscape($user->{$key});
+			if($key != "id" && isset($user->{$key})){
+				if($s){
+					$query .= "user_$key = '".$this->db->realEscape($user->{$key})."' ";
+					$s = false;
+				}
+				else{
+					$query .= ", user_$key = '".$this->db->realEscape($user->{$key})."' ";
+				}
+			}
 		}
-		$query .= " WHERE aluno_id = $user->getId()";
-		
+		$query .= " WHERE user_id = $user->id";
 		try {
 			$result = $this->db->query($query);
 			return $result;
@@ -193,22 +197,6 @@ class UserDAO {
 			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
 			throw $e;
 		}
-		return FALSE;
-	}
-	
-	/**
-	 * @todo IMPLEMENTAR!!
-	 * @param unknown $oldMail
-	 * @param unknown $name
-	 * @param unknown $surname
-	 * @param unknown $mail
-	 * @param unknown $birthday
-	 * @param unknown $password
-	 * @param unknown $sex
-	 * @param unknown $avatar
-	 */
-	public function updateUser($oldMail, $name, $surname, $mail, $birthday, $password, $sex, $avatar){
-		
 	}
 	
 	/**

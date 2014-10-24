@@ -13,7 +13,7 @@
 		private $id;
 		
 		public function getId(){
-			return $id;
+			return $this->id;
 		}
 		
 		private function setId($id){

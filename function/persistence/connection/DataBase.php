@@ -26,7 +26,6 @@ class DataBase {
 	} 
 	
 	public function __destruct() {
-		$this->mysqli->close ();
 		unset ( $this->mysqli );
 	}
 	
@@ -55,7 +54,6 @@ class DataBase {
 					Log::newLogEntry ( $this->mysqli->error, LogType::ERROR );
 					die ( 'Erro ao conectar ao banco de dados [' . $this->mysqli->error . ']' );
 				}
-				$this->mysqli->autocommit ( TRUE );
 			} catch ( Exception $e ) {
 				throw new DataBaseException ( $e->getMessage (), $e->getCode (), $e->getPrevious () );
 			}
@@ -75,7 +73,7 @@ class DataBase {
 			}
 		} catch (Exception $e) {
 			throw new DataBaseException ( $e->getMessage (), $e->getCode (), $e->getPrevious () );
-		}
+		} 
 	}
 	
 	/**
@@ -97,11 +95,11 @@ class DataBase {
 	public function query($query) {
 		$result = $this->mysqli->query ( $query );
 		if ($this->mysqli->errno > 0) {
-			$this->closeConnection();
 			throw new DataBaseException ( $this->mysqli->errno.': Erro ao conectar ao banco de dados [' . $this->mysqli->error . ']' );
 		}
-		Log::newLogEntry ( "Query \"$query\" executado com sucesso.", LogType::DEBUG);
-		$this->closeConnection();
+		else{
+			Log::newLogEntry ( "Query \"$query\" executado com sucesso.", LogType::DEBUG);
+		}
 		return $result;
 	}
 	
@@ -110,7 +108,8 @@ class DataBase {
 	 * @param unknown $string
 	 */
 	public function realEscape($string){
-		return $this->mysqli->escape_string ($string);
+		$escaped = $this->mysqli->real_escape_string($string);
+		return $escaped;
 	}
 }
 ?>
