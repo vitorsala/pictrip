@@ -17,6 +17,10 @@
 			if($r)	echo "YAY!";
 			else	echo "NAY!";
 			
+// 			$r = $dao->getUserByMail("lalala@mail.com");
+// 			$r->name = "Nome";
+// 			$dao->updateUser($r);
+			
 // 			$r = $dao->deleteUser("lalala@mail.com");
 
 // 			if($r)	echo "YAY!";
@@ -30,11 +34,11 @@
 // 			echo $r[0]->name." ".$r[0]->surname." : ".$r[0]->mail;
 
 			//----------------------------------//
-			
-// 			$auth = new Auth();
-// 			$r = $auth->login("lalala@mail.com", "lalala"); 
-// 			if($r)	echo "YAY!<br/>";
-// 			else	echo "NAY!<br/>";
+			echo "<br/><br/>";
+			$auth = new Auth();
+			$r = $auth->login("lalala@mail.com", "lalala"); 
+			if($r)	echo "YAY!<br/>";
+			else	echo "NAY!<br/>";
 
 		?>
 	</body>

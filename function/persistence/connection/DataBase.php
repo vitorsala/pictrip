@@ -73,7 +73,7 @@ class DataBase {
 			}
 		} catch (Exception $e) {
 			throw new DataBaseException ( $e->getMessage (), $e->getCode (), $e->getPrevious () );
-		}
+		} 
 	}
 	
 	/**
@@ -93,15 +93,12 @@ class DataBase {
 	 *         resultado ou a operação não for bem sucedido.
 	 */
 	public function query($query) {
-		$this->openConnection();
 		$result = $this->mysqli->query ( $query );
 		if ($this->mysqli->errno > 0) {
-			$this->closeConnection();
 			throw new DataBaseException ( $this->mysqli->errno.': Erro ao conectar ao banco de dados [' . $this->mysqli->error . ']' );
 		}
 		else{
 			Log::newLogEntry ( "Query \"$query\" executado com sucesso.", LogType::DEBUG);
-			$this->closeConnection();
 		}
 		return $result;
 	}
@@ -111,7 +108,8 @@ class DataBase {
 	 * @param unknown $string
 	 */
 	public function realEscape($string){
-		return $this->mysqli->escape_string ($string);
+		$escaped = $this->mysqli->real_escape_string($string);
+		return $escaped;
 	}
 }
 ?>
