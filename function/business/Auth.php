@@ -63,5 +63,7 @@ class Auth {
 		session_destroy();
 	}
 	
+	public function getUserId($userMail){
+	}
 }
 ?>

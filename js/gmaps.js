@@ -13,6 +13,7 @@ google.maps.event.addDomListener(window, 'load', function(){
 		center:new google.maps.LatLng(0,0),
 		zoom:2,
 		draggable:true,
+		disableDoubleClickZoom:true,
 		scrollwheel:false,
 		mapTypeId:google.maps.MapTypeId.SATELLITE,
 		disableDefaultUI: true

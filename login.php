@@ -23,7 +23,6 @@
 					<input type="submit" value="Login">
 				</p>
 			</form>
-			<br/>
 			<p><a href="cadastro.php">Registrar-se</a></p>
 		</section>
 		

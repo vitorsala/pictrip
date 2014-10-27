@@ -49,13 +49,12 @@ if (	! isset ( $_POST ['nome'] ) ||
 						<option value="São Paulo">São Paulo</option>
 						<option value="Tokyo">Tokyo</option>
 					</select>
-	
+				</p>
 					<?php
 						foreach ( $_POST as $key => $value ) {
 							echo "<input type=\"hidden\" name=\"$key\" value=\"" . $_POST [$key] . "\"/>";
 						}
 					?>
-				</p>
 				<p>
 					<input type="submit" value="Próximo!">
 				</p>

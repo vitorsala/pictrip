@@ -35,7 +35,8 @@
 			</figure>
 		</header>
 		<section id= formulario>
-			<form action="resultado.php" method="POST">
+			<form action="doUserRegister.php" method="POST">
+				
 				<h1> Lista de Interesses </h1></br>
 				<h2> Países </h2>
 				 <input type="checkbox" name="paises[]"/> Alemanha 
@@ -61,6 +62,8 @@
 				<input type="checkbox" name="interesses[]"/> Baladas 
 				
 				
+				<p>Avatar: <input type="file" name="avatar"/></p>
+				<input type="hidden" name="MAX_SIZE_FILE" value="100000">
 				<?php
 					foreach($_POST as $key => $value){
 						echo "<input type=\"hidden\" name=\"$key\" value=\"".$_POST[$key]."\"/>";  

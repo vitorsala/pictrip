@@ -1,6 +1,7 @@
 <?php
 require_once 'function/persistence/entity/Entity.php';
 require_once 'function/persistence/dao/UserDAO.php';
+require_once 'function/logging/Log.php';
 
 /**
  * Classe de registro de usuários.
@@ -63,11 +64,11 @@ class Register{
 			
 			$r = $this->dao->registerNewUser($name, $surName, $mail, $birthday, $pass, $gender, $avatar);
 			if($r){
-				newLogEntry ( "Usuário '$name $surName' ($mail) cadastrado com sucesso!" );
+				Log::newLogEntry ( "Usuário '$name $surName' ($mail) cadastrado com sucesso!" );
 				return 1;
 			}
 			else{
-				newLogEntry ( "Falha ao cadastrar o usuario '$name $surName' ($mail)!" );
+				Log::newLogEntry ( "Falha ao cadastrar o usuario '$name $surName' ($mail)!" );
 				return -5;
 			}
 		} catch ( Exception $e ) {

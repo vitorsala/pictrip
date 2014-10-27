@@ -10,7 +10,7 @@
 #formulario {
 	background-color: #ffffff;
 	width: 500px; /* Tamanho da Largura da Div */
-	height: 200px; /* Tamanho da Altura da Div */
+	height-min: 100px; /* Tamanho da Altura da Div */
 	position: absolute;
 	top: 50%;
 	margin-top: -100px;
