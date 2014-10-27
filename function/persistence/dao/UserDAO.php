@@ -143,20 +143,20 @@ class UserDAO {
 	 * @param String $mail
 	 * @param String $birthday
 	 * @param String $password
-	 * @param String $sex
+	 * @param String $gender
 	 * @param String $avatar
 	 * @throws DataBaseException
 	 * @return boolean|unknown
 	 */
-	public function registerNewUser($name, $surname, $mail, $birthday, $password, $sex, $avatar){
+	public function registerNewUser($name, $surname, $mail, $birthday, $password, $gender, $avatar){
 		$name = $this->db->realEscape($name);
 		$surname = $this->db->realEscape($surname);
 		$mail = $this->db->realEscape($mail);
 		$avatar = $this->db->realEscape($avatar);
 		$password = password_hash($password, PASSWORD_DEFAULT);
 		
-		$query = "INSERT INTO user (user_name, user_surname, user_mail, user_password, user_sex, user_birthday, user_avatar)
-				VALUES ('$name', '$surname', '$mail', '$password', '$sex', '$birthday', '$avatar')";
+		$query = "INSERT INTO user (user_name, user_surname, user_mail, user_password, user_gender, user_birthday, user_avatar)
+				VALUES ('$name', '$surname', '$mail', '$password', '$gender', '$birthday', '$avatar')";
 		
 		try {
 			if($this->checkIfUserExist($mail))	return FALSE;
