@@ -9,9 +9,11 @@
 			echo "$key => $value<br/>";
 		}
 	}
-	if(!isset($avatar))	$avatar = "";
+	if(isset($avatar)){
+		$avatar = $_FILES['avatar'];
+	}
 	else{
-		
+		$avatar = null;
 	}
 	$regUser = new Register();
 	$fm = new FileManager();

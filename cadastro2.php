@@ -1,4 +1,20 @@
 <?php
+	session_start();
+	
+	if( !isset($_SESSION['nome']) ||
+			!isset($_SESSION['sobrenome']) ||
+			!isset($_SESSION['sexo']) ||
+			!isset($_SESSION['ano']) ||
+			!isset($_SESSION['mes']) ||
+			!isset($_SESSION['dia']) ||
+			!isset($_SESSION['email']) ||
+			!isset($_SESSION['email2']) ||
+			!isset($_SESSION['senha']) ||
+			!isset($_SESSION['senha2']) ||
+			!isset($_SESSION['cidade'])){
+		
+	}
+	
 	if( !isset($_POST['nome']) || 
 		!isset($_POST['sobrenome']) ||
 		!isset($_POST['sexo']) ||
@@ -61,9 +77,6 @@
 				<input type="checkbox" name="interesses[]"/> Parques 
 				<input type="checkbox" name="interesses[]"/> Baladas 
 				
-				
-				<p>Avatar: <input type="file" name="avatar"/></p>
-				<input type="hidden" name="MAX_SIZE_FILE" value="100000">
 				<?php
 					foreach($_POST as $key => $value){
 						echo "<input type=\"hidden\" name=\"$key\" value=\"".$_POST[$key]."\"/>";  

@@ -111,5 +111,12 @@ class DataBase {
 		$escaped = $this->mysqli->real_escape_string($string);
 		return $escaped;
 	}
+	
+	/**
+	 * Retorna o id do ultimo insert
+	 */
+	public function insertId(){
+		return $this->mysqli->insert_id;
+	}
 }
 ?>

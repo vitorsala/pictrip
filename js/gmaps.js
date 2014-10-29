@@ -4,8 +4,8 @@ var map;
 var lastValidCenter;
 
 var allowedBounds = new google.maps.LatLngBounds(
-		new google.maps.LatLng(-90, -180), 
-		new google.maps.LatLng(90, 180)
+		new google.maps.LatLng(00, -180), 
+		new google.maps.LatLng(00, 180)
 );
 
 google.maps.event.addDomListener(window, 'load', function(){

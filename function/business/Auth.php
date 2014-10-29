@@ -44,7 +44,9 @@ class Auth {
 		
 		try{
 			$user = $this->dao->getUserByMail($userMail);
-			if(password_verify($password, $user->password)){
+			if($user == false)	return false;
+			//if(password_verify($password, $user->password)){
+			if($password == $user->password){
 				session_start();
 				$_SESSION['name'] = $user->name;
 				$_SESSION['surname'] = $user->surname;

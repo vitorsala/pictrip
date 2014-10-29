@@ -1,6 +1,7 @@
 <?php
 require_once 'function/persistence/entity/Entity.php';
 require_once 'function/persistence/dao/UserDAO.php';
+require_once 'function/business/FileManager.php';
 require_once 'function/logging/Log.php';
 
 /**
@@ -60,10 +61,19 @@ class Register{
 			return -4;
 		// Verificação de unicidade do usuário
 		try {
-			$pass = password_hash ( $pass, PASSWORD_DEFAULT ); // Hash da senha
+			//$pass = password_hash ( $pass, PASSWORD_DEFAULT ); // Hash da senha
 			
-			$r = $this->dao->registerNewUser($name, $surName, $mail, $birthday, $pass, $gender, $avatar);
+			if(isset($avatar)){
+				$fm = new FileManager();
+				$path = $fm->upload(FileManager::AVATAR, $avatar, $mail);
+			}
+			else{
+				$path = '';
+			}
+			
+			$r = $this->dao->registerNewUser($name, $surName, $mail, $birthday, $pass, $gender, $path);
 			if($r){
+				
 				Log::newLogEntry ( "Usuário '$name $surName' ($mail) cadastrado com sucesso!" );
 				return 1;
 			}
@@ -71,7 +81,9 @@ class Register{
 				Log::newLogEntry ( "Falha ao cadastrar o usuario '$name $surName' ($mail)!" );
 				return -5;
 			}
-		} catch ( Exception $e ) {
+		} catch ( DataBase $e ) {
+			throw $e;
+		} catch ( UploadException $e){
 			throw $e;
 		}
 	}

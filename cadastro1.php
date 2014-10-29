@@ -1,12 +1,27 @@
 <?php
-if (	! isset ( $_POST ['nome'] ) ||
-		! isset ( $_POST ['sobrenome'] ) ||
-		! isset ( $_POST ['sexo'] ) ||
-		! isset ( $_POST ['ano'] ) ||
-		! isset ( $_POST ['mes'] ) ||
-		! isset ( $_POST ['dia'] )) {
-	//header ( 'location: cadastro.php' );
-}
+	session_start();
+	if (	! isset ( $_SESSION ['nome'] ) ||
+			! isset ( $_SESSION ['sobrenome'] ) ||
+			! isset ( $_SESSION ['sexo'] ) ||
+			! isset ( $_SESSION ['ano'] ) ||
+			! isset ( $_SESSION ['mes'] ) ||
+			! isset ( $_SESSION ['dia'] )) {
+				
+				if (	! isset ( $_POST ['nome'] ) ||
+						! isset ( $_POST ['sobrenome'] ) ||
+						! isset ( $_POST ['sexo'] ) ||
+						! isset ( $_POST ['ano'] ) ||
+						! isset ( $_POST ['mes'] ) ||
+						! isset ( $_POST ['dia'] )) {
+							header ( 'location: cadastro.php' );
+						}
+						else{
+							foreach ($_POST as $key => $value){
+								$_SESSION[$key] = $value;
+							}
+						}
+	}
+
 ?>
 
 <html>
