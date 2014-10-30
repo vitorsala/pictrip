@@ -11,7 +11,7 @@
 		public $surname;
 		public $birthday;
 		public $password;
-		public $sex;
+		public $gender;
 		public $avatar;
 		public $registred;
 		

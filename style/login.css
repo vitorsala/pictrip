@@ -1,0 +1,66 @@
+#banner{
+	position: absolute;
+	top: 20%;
+	margin-top: -100px;
+	/* ou seja ele pega 50% da altura tela e sobe metade do valor da altura no caso 100 */
+	left: 55%;
+	margin-left: -275px;
+}
+
+#formulario {
+	background-color: #ffffff;
+	width: 500px; /* Tamanho da Largura da Div */
+	height-min: 100px; /* Tamanho da Altura da Div */
+	position: absolute;
+	top: 50%;
+	margin-top: -100px;
+	/* ou seja ele pega 50% da altura tela e sobe metade do valor da altura no caso 100 */
+	left: 55%;
+	margin-left: -275px;
+	/* ou seja ele pega 50% da largura tela e diminui  metade do valor da largura no caso 250 */
+	border-radius: 10px 10px 10px 10px;
+}
+
+#formulario{
+	text-align: center;
+}
+
+#formulario>p>a{
+	appearance: button;
+	-webkit-appearance: button;
+	-moz-appearance: button;
+	text-decoration: none;
+	font: menu;
+	font-size: 10pt;
+	display: inline-block;
+	padding: 2px 8px;
+	color: ButtonText;
+}
+
+#footer {
+	text-align: center;
+	position: absolute;
+	top: 100%;
+	margin-top: -100px;
+	left: 20%;
+	margin-left: -250;
+}
+
+#footer ul {
+	width: 275px;
+}
+
+#footer li {
+	display: block;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	margin: 5px;
+	width: 125px;
+}
+
+#footer a{
+	color: #FFFFFF;
+	text-shadow: 0px 0px 1px #000000;
+	font-weight: bold;
+}

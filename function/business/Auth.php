@@ -8,6 +8,13 @@ require_once 'function/persistence/dao/UserDAO.php';
  * @todo testes
  */
 class Auth {
+
+	/** @var Expressão regular para validação de emails */
+	private $mailRegex = "/^[a-zA-z].*@[a-zA-Z].*\.com?(\.[a-zA-Z]*)*$/";
+	
+	/** @var Expressão regular para validação de senhas */
+	private $passRegex = "/^(\w|!|\?|@|#|\$|%|&|\*){5,}$/";
+	
 	/**
 	 * @var UserDAO - DAO do usuário.
 	 */
@@ -28,13 +35,23 @@ class Auth {
 	 * @todo Testar sessão.
 	 */
 	public function login($userMail, $password){
+		// Validação de dados
+		if (preg_match ( $this->mailRegex, $userMail ) == 0)
+			return false;
+		
+		if (strlen ( $password ) < 5 || preg_match ( $this->passRegex, $password ) == 0)
+			return false;
+		
 		try{
 			$user = $this->dao->getUserByMail($userMail);
-			if(password_verify($password, $user->password)){
+			if($user == false)	return false;
+			//if(password_verify($password, $user->password)){
+			if($password == $user->password){
 				session_start();
 				$_SESSION['name'] = $user->name;
 				$_SESSION['surname'] = $user->surname;
 				$_SESSION['mail'] = $user->mail;
+				$_SESSION['gender'] = $user->gender;
 				$_SESSION['logged'] = TRUE;
 				return TRUE;
 			}
@@ -48,6 +65,7 @@ class Auth {
 		session_destroy();
 	}
 	
+	public function getUserId($userMail){
+	}
 }
-
 ?>

@@ -1,6 +1,8 @@
 <?php
 require_once 'function/persistence/entity/Entity.php';
 require_once 'function/persistence/dao/UserDAO.php';
+require_once 'function/business/FileManager.php';
+require_once 'function/logging/Log.php';
 
 /**
  * Classe de registro de usuários.
@@ -33,7 +35,7 @@ class Register{
 	 * @param unknown $bMonth
 	 * @param unknown $bYear
 	 * @param unknown $pass
-	 * @param unknown $sex
+	 * @param unknown $gender
 	 * @param unknown $avatar
 	 * @throws Exception
 	 * @return number
@@ -41,7 +43,7 @@ class Register{
 	 * @todo testar condições de erro
 	 */
 	
-	public function registerNewUser($name, $surName, $mail, $bDay, $bMonth, $bYear, $pass, $sex, $avatar) {
+	public function registerNewUser($name, $surName, $mail, $bDay, $bMonth, $bYear, $pass, $gender, $avatar) {
 		
 		// Validação de dados
 		if (preg_match ( $this->mailRegex, $mail ) == 0)
@@ -50,7 +52,7 @@ class Register{
 		if (strlen ( $pass ) < 5 || preg_match ( $this->passRegex, $pass ) == 0)
 			return -2;
 		
-		if ($sex != "M" && $sex != "F")
+		if ($gender != "M" && $gender != "F")
 			return -3;
 		
 		if (checkdate($bMonth, $bDay, $bYear))
@@ -59,22 +61,27 @@ class Register{
 			return -4;
 		// Verificação de unicidade do usuário
 		try {
-			if (checkIfUserExist ( $userMail ))
-				return -5;
-			$pass = password_hash ( $userPass, PASSWORD_DEFAULT ); // Hash da senha
+			//$pass = password_hash ( $pass, PASSWORD_DEFAULT ); // Hash da senha
 			
-			$r = $this->dao->registerNewUser($name, $surName, $mail, $birthday, $pass, $sex, $avatar);
+			$fm = new FileManager();
+			try{
+				$path = $fm->upload(FileManager::AVATAR, $avatar, $mail);
+			}catch(UploadException $e2){
+				$path = "";
+			}
+			echo "avatar => $path<br/><img src='$path' alt='avatar'/>";
+			$r = $this->dao->registerNewUser($name, $surName, $mail, $birthday, $pass, $gender, $path);
 			if($r){
-				newLogEntry ( "Usuário '$name $surName' ($mail) cadastrado com sucesso!" );
+				Log::newLogEntry ( "Usuário '$name $surName' ($mail) cadastrado com sucesso!" );
 				return 1;
 			}
 			else{
-				newLogEntry ( "Falha ao cadastrar o usuario '$name $surName' ($mail)!" );
+				Log::newLogEntry ( "Falha ao cadastrar o usuario '$name $surName' ($mail)!" );
 				return -5;
 			}
-		} catch ( Exception $e ) {
+		} catch ( DataBase $e ) {
 			throw $e;
-		}
+		} 
 	}
 	
 }
