@@ -37,7 +37,9 @@ class FileManager{
 	private function checkDirectory($userMail){
 		$path = $this::IMAGE_FOLDER_ROOT."$userMail";
 		if(!file_exists($path)){
-			mkdir($path, $this::DEFAULT_PERMISSION, true);
+			mkdir($path."/avatar", $this::DEFAULT_PERMISSION, true);
+			mkdir($path."/photo", $this::DEFAULT_PERMISSION, true);
+			mkdir($path."/other", $this::DEFAULT_PERMISSION, true);
 		}
 		return $path;
 	}
@@ -47,7 +49,7 @@ class FileManager{
 			throw new UploadException($this->upload_errors[$file['error']],1);
 		}
 		
-		if(array_search($file['type'], $tiposAceitos) == FALSE){
+		if(array_search($file['type'], $this->fileType) == FALSE){
 			throw new UploadException("Tipo não permitido!	Utilize apenas JPG,BMP,PNG ou GIF",1);
 		}
 		
@@ -55,19 +57,18 @@ class FileManager{
 			throw new UploadException("Arquivo vazio!",1);
 		}
 		
-		if($file['size'] > $tamanho){
-			throw new UploadException("Arquivo muito grande!",1);
-		}
+// 		if($file['size'] > $tamanho){
+// 			throw new UploadException("Arquivo muito grande!",1);
+// 		}
 		
 		if($type == $this::AVATAR)		$upType = "avatar";
 		elseif($type == $this::PHOTO)	$upType = "photo";
 		else							$upType = "other";
 		
-		$fileName = date('Y-m-d h.i.s')."-".$file['name'];
+		$fileName = date('Y-m-d h.i.s')."@".$file['name'];
 		//$path_info = pathinfo($fileName);
 		$path = $this->checkDirectory($userMail)."/$upType/";
 		$path .= $fileName;
-		echo "$path<br/>";
 		if(move_uploaded_file($file['tmp_name'],$path)){
 			return $path;
 		}

@@ -1,39 +1,31 @@
 <?php
 	session_start();
-	
-	if( !isset($_SESSION['nome']) ||
-			!isset($_SESSION['sobrenome']) ||
-			!isset($_SESSION['sexo']) ||
-			!isset($_SESSION['ano']) ||
-			!isset($_SESSION['mes']) ||
-			!isset($_SESSION['dia']) ||
-			!isset($_SESSION['email']) ||
-			!isset($_SESSION['email2']) ||
-			!isset($_SESSION['senha']) ||
-			!isset($_SESSION['senha2']) ||
-			!isset($_SESSION['cidade'])){
-		
+
+	if(!empty($_POST)){
+		foreach ($_POST as $key => $value){
+			$_SESSION[$key] = $value;
+		}
 	}
 	
-	if( !isset($_POST['nome']) || 
-		!isset($_POST['sobrenome']) ||
-		!isset($_POST['sexo']) ||
-		!isset($_POST['ano']) ||
-		!isset($_POST['mes']) ||
-		!isset($_POST['dia']) ||
-		!isset($_POST['email']) || 
-		!isset($_POST['email2']) ||
-		!isset($_POST['senha']) ||
-		!isset($_POST['senha2']) ||
-		!isset($_POST['cidade'])){
+	if( !isset($_SESSION['nome']) ||
+		!isset($_SESSION['sobrenome']) ||
+		!isset($_SESSION['sexo']) ||
+		!isset($_SESSION['ano']) ||
+		!isset($_SESSION['mes']) ||
+		!isset($_SESSION['dia']) ||
+		!isset($_SESSION['email']) ||
+		!isset($_SESSION['email2']) ||
+		!isset($_SESSION['senha']) ||
+		!isset($_SESSION['senha2']) ||
+		!isset($_SESSION['cidade'])){
 			header('location: cadastro.php');
 	}
 	
-	if($_POST['email'] != $_POST['email2']){
-			header('location: cadastro1.php?err=1');
+	if($_SESSION['email'] != $_SESSION['email2']){
+		header('location: cadastro1.php?err=1');
 	}
-	if($_POST['senha'] != $_POST['senha2']){
-			header('location: cadastro1.php?err=2');
+	if($_SESSION['senha'] != $_SESSION['senha2']){
+		header('location: cadastro1.php?err=2');
 	}
 
 ?>
@@ -51,7 +43,7 @@
 			</figure>
 		</header>
 		<section id= formulario>
-			<form action="doUserRegister.php" method="POST">
+			<form action="doUserRegister.php" method="POST" enctype="multipart/form-data">
 				
 				<h1> Lista de Interesses </h1></br>
 				<h2> Países </h2>
@@ -75,13 +67,11 @@
 				<input type="checkbox" name="interesses[]"/> Shows </br>
 				<input type="checkbox" name="interesses[]"/> Museus 
 				<input type="checkbox" name="interesses[]"/> Parques 
-				<input type="checkbox" name="interesses[]"/> Baladas 
+				<input type="checkbox" name="interesses[]"/> Baladas
 				
-				<?php
-					foreach($_POST as $key => $value){
-						echo "<input type=\"hidden\" name=\"$key\" value=\"".$_POST[$key]."\"/>";  
-					}
-				?>
+				 
+				<p>Avatar: <input type="file" name="avatar"/></p>
+				<input type="hidden" name="MAX_SIZE_FILE" value="100000">
 
 				<p> <input type="submit" value="Concluir cadastro!"> </p> 
 			</form>

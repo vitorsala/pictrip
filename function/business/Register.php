@@ -63,17 +63,15 @@ class Register{
 		try {
 			//$pass = password_hash ( $pass, PASSWORD_DEFAULT ); // Hash da senha
 			
-			if(isset($avatar)){
-				$fm = new FileManager();
+			$fm = new FileManager();
+			try{
 				$path = $fm->upload(FileManager::AVATAR, $avatar, $mail);
+			}catch(UploadException $e2){
+				$path = "";
 			}
-			else{
-				$path = '';
-			}
-			
+			echo "avatar => $path<br/><img src='$path' alt='avatar'/>";
 			$r = $this->dao->registerNewUser($name, $surName, $mail, $birthday, $pass, $gender, $path);
 			if($r){
-				
 				Log::newLogEntry ( "Usuário '$name $surName' ($mail) cadastrado com sucesso!" );
 				return 1;
 			}
@@ -83,9 +81,7 @@ class Register{
 			}
 		} catch ( DataBase $e ) {
 			throw $e;
-		} catch ( UploadException $e){
-			throw $e;
-		}
+		} 
 	}
 	
 }

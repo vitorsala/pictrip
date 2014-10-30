@@ -1,25 +1,19 @@
 <?php
 	session_start();
+	
+	if(!empty($_POST)){
+		foreach ($_POST as $key => $value){
+			$_SESSION[$key] = $value;
+		}
+	}
+	
 	if (	! isset ( $_SESSION ['nome'] ) ||
 			! isset ( $_SESSION ['sobrenome'] ) ||
 			! isset ( $_SESSION ['sexo'] ) ||
 			! isset ( $_SESSION ['ano'] ) ||
 			! isset ( $_SESSION ['mes'] ) ||
 			! isset ( $_SESSION ['dia'] )) {
-				
-				if (	! isset ( $_POST ['nome'] ) ||
-						! isset ( $_POST ['sobrenome'] ) ||
-						! isset ( $_POST ['sexo'] ) ||
-						! isset ( $_POST ['ano'] ) ||
-						! isset ( $_POST ['mes'] ) ||
-						! isset ( $_POST ['dia'] )) {
-							header ( 'location: cadastro.php' );
-						}
-						else{
-							foreach ($_POST as $key => $value){
-								$_SESSION[$key] = $value;
-							}
-						}
+				header ( 'location: cadastro.php' );
 	}
 
 ?>
@@ -42,7 +36,7 @@
 				if(isset($_GET['err'])){
 					$err = $_GET['err'];
 					if($err == 1)	echo "<p>Email não confere.</p>";
-					if($err == 2)	echo "<p>Senha não confere.</p>";
+					elseif($err == 2)	echo "<p>Senha não confere.</p>";
 				}?>
 				<p>
 					<input name="email" placeholder="Email" type="email" required />
@@ -65,11 +59,6 @@
 						<option value="Tokyo">Tokyo</option>
 					</select>
 				</p>
-					<?php
-						foreach ( $_POST as $key => $value ) {
-							echo "<input type=\"hidden\" name=\"$key\" value=\"" . $_POST [$key] . "\"/>";
-						}
-					?>
 				<p>
 					<input type="submit" value="Próximo!">
 				</p>
