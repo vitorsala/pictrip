@@ -52,6 +52,7 @@ class Auth {
 				$_SESSION['surname'] = $user->surname;
 				$_SESSION['mail'] = $user->mail;
 				$_SESSION['gender'] = $user->gender;
+				$_SESSION['avatar'] = $user->avatar;
 				$_SESSION['logged'] = TRUE;
 				return TRUE;
 			}
@@ -62,6 +63,7 @@ class Auth {
 	}
 	
 	public function logout(){
+		session_start();
 		session_destroy();
 	}
 	

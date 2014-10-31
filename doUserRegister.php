@@ -16,4 +16,5 @@
 	$regUser = new Register();
 	$regUser->registerNewUser($nome, $sobrenome, $email, $dia, $mes, $ano, $senha, $sexo, $avatar);
 	session_destroy();
+	header("location:success.php");
 ?>

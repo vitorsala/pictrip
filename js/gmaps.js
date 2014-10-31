@@ -1,34 +1,27 @@
 
 var map;
-
+var lat = 0;
+var lon = -180;
 var lastValidCenter;
-
-var allowedBounds = new google.maps.LatLngBounds(
-		new google.maps.LatLng(00, -180), 
-		new google.maps.LatLng(00, 180)
-);
 
 google.maps.event.addDomListener(window, 'load', function(){
 	var mapProp = {
-		center:new google.maps.LatLng(0,0),
-		zoom:2,
-		draggable:true,
+		center:new google.maps.LatLng(lat,lon),
+		zoom:3,
+		draggable:false,
 		disableDoubleClickZoom:true,
 		scrollwheel:false,
 		mapTypeId:google.maps.MapTypeId.SATELLITE,
 		disableDefaultUI: true
 	};
 	map = new google.maps.Map(document.getElementById("googleMaps"),mapProp);
-	lastValidCenter = map.getCenter();
-
-	google.maps.event.addListener(map, 'center_changed', function() {
-		if (allowedBounds.contains(map.getCenter())) {
-			lastValidCenter = map.getCenter();
-			return; 
-		}
-		map.panTo(lastValidCenter);
-	});
 	
 });
 
+setInterval(autopan, 100);
+function autopan(){
+	lon += 0.5;
+	console.log(lat+":"+lon);
+	map.panTo(new google.maps.LatLng(lat,lon));
+}
 

@@ -8,8 +8,7 @@ $password = $_POST['pass'];
 $auth = new Auth();
 $login = $auth->login($userMail, $password);
 if($login){
-	$nome = $_SESSION['name']." ".$_SESSION['surname'];
-	echo "Bem vindo(a) $nome.";
+	header("location:home.php");
 }
-else		echo "NAY!";
+else		header("location:index.php");;
 ?>

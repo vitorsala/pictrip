@@ -15,6 +15,10 @@
 			! isset ( $_SESSION ['dia'] )) {
 				header ( 'location: cadastro.php' );
 	}
+	
+	if(!checkdate($_SESSION ['mes'], $_SESSION ['dia'], $_SESSION ['ano'])){
+		header ( 'location: cadastro.php?err=1' );
+	}
 
 ?>
 
@@ -35,8 +39,8 @@
 				<?php 
 				if(isset($_GET['err'])){
 					$err = $_GET['err'];
-					if($err == 1)	echo "<p>Email não confere.</p>";
-					elseif($err == 2)	echo "<p>Senha não confere.</p>";
+					if($err == 1)	echo "<p class='red'>Email não confere.</p>";
+					elseif($err == 2)	echo "<p class='red'>Senha não confere.</p>";
 				}?>
 				<p>
 					<input name="email" placeholder="Email" type="email" required />

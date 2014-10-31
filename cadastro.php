@@ -13,6 +13,12 @@
 		</header>
 		<section id="formulario">
 			<form action="cadastro1.php" method="POST">
+				<?php 
+				if(isset($_GET['err'])){
+					$err = $_GET['err'];
+					if($err == 1)	echo "<p class='red'>Data inválida.</p>";
+				}
+				?>
 				<p>
 					Nome: <input name="nome" placeholder="Nome" type="text" required />
 				</p>
