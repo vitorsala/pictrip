@@ -47,7 +47,8 @@ class Auth {
 			if($user == false)	return false;
 			//if(password_verify($password, $user->password)){
 			if($password == $user->password){
-				session_start();
+				if(session_status() !== FALSE)	session_start();
+				$_SESSION['id'] = $user->id;
 				$_SESSION['name'] = $user->name;
 				$_SESSION['surname'] = $user->surname;
 				$_SESSION['mail'] = $user->mail;

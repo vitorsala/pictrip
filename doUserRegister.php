@@ -4,7 +4,7 @@
 	include 'header.php';
 	header ('Content-type: text/html; charset=UTF-8');
 
-	session_start();
+	if(session_status() !== FALSE)	session_start();
 	foreach ( $_SESSION as $key => $value ) {
 		if(!is_array($value)){
 			${$key} = $value;

@@ -8,7 +8,7 @@
 	<body>
 		
 		<?php
-			@session_start();
+			if(session_status() !== FALSE)	session_start();
 			$nome = $_SESSION['name']." ".$_SESSION['surname'];
 			echo "login feito com sucesso!<br/>";
 			echo "Bem vindo(a) $nome.<br/>";

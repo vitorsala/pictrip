@@ -1,4 +1,3 @@
-
 var map;
 var lat = 0;
 var lon = -180;
@@ -12,7 +11,7 @@ google.maps.event.addDomListener(window, 'load', function(){
 		disableDoubleClickZoom:true,
 		scrollwheel:false,
 		mapTypeId:google.maps.MapTypeId.SATELLITE,
-		disableDefaultUI: true
+		disableDefaultUI:true
 	};
 	map = new google.maps.Map(document.getElementById("googleMaps"),mapProp);
 	
@@ -21,7 +20,7 @@ google.maps.event.addDomListener(window, 'load', function(){
 setInterval(autopan, 100);
 function autopan(){
 	lon += 0.5;
-	console.log(lat+":"+lon);
+	//console.log(lat+":"+lon);
 	map.panTo(new google.maps.LatLng(lat,lon));
 }
 

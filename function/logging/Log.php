@@ -14,7 +14,7 @@
 	    public static function newLogEntry($message, $type = LogType::LOG){
 	    	if(!DEBUG_MODE && $type == LogType::DEBUG)	die();
 	    	date_default_timezone_set('America/Sao_Paulo');
-	    	$filePrefix = "pictrip_log_".date('Y-m-d');
+	    	$filePrefix = "pictrip_log_".date('Y-m-d').".log";
 	    	
 	        $msg = date('Y-m-d h:i:s e').' - ';
 	        
