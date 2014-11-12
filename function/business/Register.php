@@ -61,7 +61,7 @@ class Register{
 			return -4;
 		// Verificação de unicidade do usuário
 		try {
-			//$pass = password_hash ( $pass, PASSWORD_DEFAULT ); // Hash da senha
+			$pass = md5 ($pass); // Hash da senha
 			
 			$fm = new FileManager();
 			try{

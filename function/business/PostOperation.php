@@ -15,20 +15,19 @@ class PostOperation{
 	}
 	
 	public function getAllPosts(){
-		if(session_status() !== FALSE)	session_start();
 		$posts = $this->dao->getAllPosts();
 		if(!$posts)	return false;
-		$_SESSION['posts'] = urlencode(serialize($posts));
-		return true;
+		return $posts;
 	}
 	
 	public function getUserPosts($userId = NULL){
-		if(session_status() !== FALSE)	session_start();
-		if($userId == NULL)	$userId = $_SESSION['id'];
+		if($userId == NULL){
+			if(session_status() !== FALSE)	session_start();
+			$userId = $_SESSION['id'];
+		}
 		$posts = $this->dao->getPostsFromSingleUser($userId);
 		if(!$posts)	return false;
-		$_SESSION['posts'] = urlencode(serialize($posts));
-		return true;
+		return $posts;
 	}
 	
 	public function deleteSinglePost($postId){
