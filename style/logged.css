@@ -1,0 +1,223 @@
+footer{
+	position: center;
+	margin: 500px;
+}
+
+nav {
+	position: fixed;
+}
+
+#banner>img{
+	heigth: 40px;
+	width: 40px;
+}
+
+/* conteudo */
+.contentBody{
+	position: absolute;
+	top: 50px;
+	text-align: center;
+	width: 100%;;
+	height: 100%;
+}
+
+#newPost>h2{
+	margin-bottom: 5px;
+}
+
+#newPost > textarea {
+	border-radius: 0 0 10px 10px;
+	width: 100%;
+}
+
+#newPost > input {
+	border: medium none;
+	display: inline-block;
+}
+
+.posts{
+	overflow-y: scroll;
+	width: 730px;
+	overflow-x: hidden;
+	margin: -20px auto 0;
+	height: 600px;
+}
+
+.content{
+	background: #ffffff;
+	margin: 10px auto;
+	width: 710px;
+	box-shadow: 1px 5px 5px 3px #888888;
+	margin-bottom: 30px;
+	border-radius: 2em;
+}
+
+.contentTitle .meta{
+	width: 700px;
+	margin: 0px;
+	font-size: 6pt;
+}
+
+.contentTitle .meta h2{
+	display: inline-block;
+}
+
+.contentText, .contentText p, .contentText figure, .contentText figure img, .comments {
+	width: 700px;
+	margin: 0px	5px;
+	text-align: left;
+}
+
+.comments h3{
+	text-align:center;
+}
+.comments div{
+	margin: 0px	5px;
+}
+
+#confComentario {
+	position: relative;
+	left: 50px;
+	
+}
+
+/* footer */
+
+/* Menu inferior */
+.mainNav {
+	z-index: 1500;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	background-color: #385573;
+}
+
+.mainNav ul {
+	list-style-type: none;
+    margin: 0 0 0 -40px;
+}
+
+.mainNav ul li, .navLink{
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+	-moz-transition: background-color 0.6s ease;
+	-webkit-transition: background-color 0.6s ease;
+	transition: background-color 0.6s ease;
+}
+
+.navLink{
+    padding: 10px 12px;
+}
+
+.mainNav ul .navLink:hover{
+    color:rgb(255,255,255);
+	background-color:rgba(255,255,255,0.2);   
+    margin: 0;
+    
+	-moz-transition: background-color 0.6s ease;
+	-webkit-transition: background-color 0.6s ease;
+	transition: background-color 0.6s ease;
+}
+
+.mainNav ul li a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* footer */
+body>footer{
+	text-align: center;
+	margin: 40px auto;
+}
+
+/* Busca */
+#searchForm input[type="text"]{
+	position: absolute;
+	top: 16px;
+	right: 30px;
+    width: 300px;
+    border-radius: 0 10px 10px 0px;
+}
+
+#searchForm input[type="submit"]{
+    border-style: none;
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    position: fixed;
+    right: 30px;
+    top: 18px;
+    background-color: #ffffff;
+    background-image: url("./img/icons/magnifier.png");
+    background-repeat: no-repeat;
+    background-size: 19px 19px;
+}
+
+/* Config img */
+#configBtn{
+    position: fixed;
+    left: 520px;
+    width: 20px;
+	height: 20px;
+	padding: 5px;
+}
+
+#configBtn img {
+	width: 40px;
+	height: 40px;
+}
+
+/*AVATAR*/
+#avatar  {
+	position: fixed;
+    left: 450px;
+	width: 40px;
+	height: 40px;
+	padding: 5px;
+}
+
+#avatar img {
+	width: 40px;
+	height: 40px;
+}
+
+/* home */
+#home {
+	position: fixed;
+    left: 560px;
+	width: 40px;
+	height: 40px;
+	padding: 5px;
+}
+
+#home img {
+	width: 40px;
+	height: 40px;
+}  
+
+/*logout*/
+#logout {
+	position: fixed;
+    left: 600px;
+	width: 40px;
+	height: 40px;
+	padding: 5px;
+}
+
+#logout img {
+	width: 40px;
+	height: 40px;
+}
+
+/* alterar */
+.alterar p {
+	font-family: Comic Sans;
+}
+
+
