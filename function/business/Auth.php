@@ -47,6 +47,7 @@ class Auth {
 			if($user == false)	return false;
 			$password = md5($password);
 			if($password == $user->password){
+				session_set_cookie_params(3600,"/");
 				if(session_status() !== FALSE)	session_start();
 				$_SESSION['id'] = $user->id;
 				$_SESSION['name'] = $user->name;
@@ -68,7 +69,5 @@ class Auth {
 		session_destroy();
 	}
 	
-	public function getUserId($userMail){
-	}
 }
 ?>

@@ -75,6 +75,39 @@ class PostDAO {
 	}
 	
 	/**
+	 * @param unknown $postId
+	 * @throws DataBaseException
+	 * @return boolean|Post
+	 */
+	public function getPostsById($postId) {
+		$i = 0;
+		$query = "
+			SELECT * FROM post
+			WHERE post_id = '$postId'
+		;";
+		try {
+			$result = $this->db->query ( $query );
+			if ($result->num_rows <= 0)
+				return FALSE;
+			
+			$post = new Post ();
+			while ( $result && $row = mysqli_fetch_array ( $result ) ) {
+				foreach ( $row as $key => $value ) {
+					if (! is_numeric ( $key )) {
+						$var = str_replace ( $this->suffix, "", $key );
+						$post ->{$var} = $value;
+					}
+				}
+				return $post;
+			}
+			return FALSE;
+		} catch ( DataBaseException $e ) {
+			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
+			throw $e;
+		}
+	}
+	
+	/**
 	 * @throws DataBaseException
 	 * @return boolean|Post
 	 */

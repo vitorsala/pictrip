@@ -72,6 +72,38 @@ class UserDAO {
 	}
 	
 	/**
+	 * Busca as informações de um usuário através do id.
+	 * @param String $userId - Id do usuário.
+	 * @throws DataBaseException
+	 * @return <strong>User</strong> caso o usuário seja encontrado<br/>
+	 * <strong>FALSE</strong> caso contrário.
+	 */
+	public function getUserById($userId) {
+		$user = new User();
+		$query = "SELECT * FROM user WHERE user_id = '$userId';";
+		try {
+			$result = $this->db->query ($query);
+			if($result->num_rows <= 0)	return FALSE;
+				
+			while ( $result && $row = mysqli_fetch_array ( $result ) ) {
+				foreach($row as $key => $value){
+					if(!is_numeric($key)){
+						$var = str_replace($this->suffix, "", $key);
+						$user->{$var} = $value;
+					}
+				}
+	
+				return $user;
+			}
+			return FALSE;
+		} catch ( DataBaseException $e ) {
+			Log::newLogEntry ( $e->getMessage (), logType::ERROR );
+			throw $e;
+		}
+		return FALSE;
+	}
+	
+	/**
 	 * Retorna lista completa de usuários (Ordenado pelo nome)
 	 * @throws DataBaseException
 	 * @return <strong>array</strong> caso tenha usuário registrado no banco de dados<br/>
@@ -189,6 +221,7 @@ class UserDAO {
 			}
 		}
 		$query .= " WHERE user_id = $user->id";
+		echo $query;
 		try {
 			$result = $this->db->query($query);
 			return $result;

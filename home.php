@@ -2,6 +2,9 @@
 require_once 'head.php';
 require_once 'function/business/PostOperation.php';
 if(session_status() !== FALSE)	session_start();
+if(!isset($_SESSION['logged']) || !$_SESSION['logged']){
+	header("location:index.php");
+}
 $op = new PostOperation();
 $posts = $op->getAllPosts();
 ?>
@@ -11,6 +14,8 @@ $posts = $op->getAllPosts();
 <html>
 	<head>
 		<?php include 'header.php';?>
+		
+		<script type="text/javascript" src="js/postEdit.js"></script>
 		<link rel="stylesheet" type="text/css" href= "style/logged.css">
 	</head>
 	<body>
@@ -61,6 +66,14 @@ $posts = $op->getAllPosts();
 								<form action='doPostDelete.php' method='post'>
 									<input type='hidden' name='postId' value='$post->id'/>
 									<input type='submit' value='deletar post'/>
+								</form>
+							";
+							echo "
+								<button class='editPost'>Editar</button>
+								<form style='display:none;' action='doPostUpdate.php' method='post'>
+									<textarea cols='85' rows='4' name='content'>$post->content</textarea>
+									<input type='hidden' name='postId' value='$post->id'/>
+									<input type='submit' value='editar post'/>
 								</form>
 							";
 						}?>

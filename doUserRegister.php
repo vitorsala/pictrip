@@ -8,7 +8,7 @@
 	foreach ( $_SESSION as $key => $value ) {
 		if(!is_array($value)){
 			${$key} = $value;
-			echo "$key => $value<br/>";
+			//echo "$key => $value<br/>";
 		}
 	}
 	$avatar = $_FILES['avatar'];

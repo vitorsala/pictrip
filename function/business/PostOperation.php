@@ -33,5 +33,15 @@ class PostOperation{
 	public function deleteSinglePost($postId){
 		return $this->dao->deletePost($postId);
 	}
+	
+	public function updatePost($postId, $content){
+		try{
+			$post = $this->dao->getPostsById($postId);
+			$post->content = $content;
+			$this->dao->updatePost($post);
+		}catch(DataBaseException $e){
+			throw $e;
+		}
+	}
 }
 ?>

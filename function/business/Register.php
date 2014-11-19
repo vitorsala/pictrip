@@ -79,9 +79,48 @@ class Register{
 				Log::newLogEntry ( "Falha ao cadastrar o usuario '$name $surName' ($mail)!" );
 				return -5;
 			}
-		} catch ( DataBase $e ) {
+		} catch ( DataBaseException $e ) {
 			throw $e;
 		} 
+	}
+	private function isNotNull($args){
+		return $args != null;
+	}
+	public function changeUserInfo($userId, $name, $surName, $mail, $bDay, $bMonth, $bYear, $pass, $gender, $avatar){
+		try{
+			$user = $this->dao->getUserById($userId);
+			
+			if($this->isNotNull($name))	$user->name = $name;
+			if($this->isNotNull($surName))	$user->surname = $surName;
+			if($this->isNotNull($mail)){
+				if (preg_match ( $this->mailRegex, $mail ) == 0)	return -1;
+				$user->mail = $mail;
+			}
+			if($this->isNotNull($pass)){
+				if (strlen ( $pass ) < 5 || preg_match ( $this->passRegex, $pass ) == 0)	return -2;
+				$user->password = md5($pass);
+			}
+			if($this->isNotNull($bDay) && $this->isNotNull($bMonth) && $this->isNotNull($bYear)){
+				if (checkdate($bMonth, $bDay, $bYear))
+					$user->birthday = date("Y/m/d",mktime(0, 0, 0, $bMonth, $bDay, $bYear));
+			}
+			if($this->isNotNull($gender)){
+				if ($gender != "M" && $gender != "F")	return -3;
+				$user->gender = $gender;
+			}
+			if($this->isNotNull($avatar) && $avatar != ""){
+				$fm = new FileManager();
+				try{
+					$path = $fm->upload(FileManager::AVATAR, $avatar, $user->mail);
+				}catch(UploadException $e2){
+					$path = "";
+				}
+				if($path != "")	$user->avatar = $path;
+			}
+			$this->dao->updateUser($user);
+		}catch (DataBaseException $e){
+			throw $e;
+		}
 	}
 	
 }
